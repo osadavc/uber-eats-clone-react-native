@@ -1,16 +1,17 @@
+import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { View, SafeAreaView, ScrollView } from "react-native";
-import Categories from "../components/Categories";
-import HeaderTabs from "../components/HeaderTabs";
+import { View, SafeAreaView, ScrollView, Text } from "react-native";
+import Categories from "../components/Home/Categories";
+import HeaderTabs from "../components/Home/HeaderTabs";
 import RestaurantItems, {
   localRestaurants,
-} from "../components/RestaurantItems";
-import SearchBar from "../components/SearchBar";
+} from "../components/Home/RestaurantItems";
+import SearchBar from "../components/Home/SearchBar";
 
 const YELP_API_KEY =
   "iGJtvX8vvP7DRhLyo4LDN-Fje_y9eKUwIZb5EaWBS4dMWZBCSd0B5KP0M4CHPM4H1P9e0R0YuwHzLqDeNYWminFru6DInpI65WgmWaPJj71qjMu3WyAU56BeppRHYXYx";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [restaurantData, setRestaurantData] = useState(localRestaurants);
   const [city, setCity] = useState("San Francisco");
   const [activeTab, setActiveTab] = useState("Pickup");
@@ -46,10 +47,11 @@ export default function Home() {
   }, [city, activeTab]);
 
   return (
-    <SafeAreaView>
+    <View>
+      <StatusBar />
       <View
         style={{
-          paddingTop: 38,
+          paddingTop: 30,
           padding: 15,
           backgroundColor: "white",
         }}
@@ -60,9 +62,12 @@ export default function Home() {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Categories />
         <View style={{ paddingBottom: 170, flex: 1 }}>
-          <RestaurantItems restaurantData={restaurantData} />
+          <RestaurantItems
+            restaurantData={restaurantData}
+            navigation={navigation}
+          />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
