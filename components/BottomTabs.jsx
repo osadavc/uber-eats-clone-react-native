@@ -8,7 +8,7 @@ export default function BottomTabs() {
     <View
       style={{
         flexDirection: "row",
-        padding: 10,
+        padding: 8,
         paddingHorizontal: 20,
         justifyContent: "space-between",
         backgroundColor: "#eee",

@@ -19,9 +19,11 @@ export default function SearchBar({ setCity }) {
   }, [input]);
 
   const getLocations = () => {
-    const MAP_BOX_URL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${input}.json?worldview=cn&access_token=pk.eyJ1Ijoib3NhZGF0aGVjb2RlciIsImEiOiJja3R0czR2Z3IwM3l2Mm9tcGR4MHU3MzA5In0.n8P7tFoXn1G-wumFNjeL2g`;
+    const MAP_BOX_API_KEY =
+      "pk.eyJ1Ijoib3NhZGF0aGVjb2RlciIsImEiOiJja3R0czR2Z3IwM3l2Mm9tcGR4MHU3MzA5In0.n8P7tFoXn1G-wumFNjeL2g";
+    const MAP_BOX_URL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${input}.json?worldview=cn&access_token=${MAP_BOX_API_KEY}`;
 
-    if (input == "") setLocations(null);
+    if (!isFocus) setLocations(null);
     return fetch(MAP_BOX_URL)
       .then((res) => res.json())
       .then((json) => json?.features?.map((item) => item.place_name))
@@ -30,7 +32,8 @@ export default function SearchBar({ setCity }) {
 
   const selectLocation = (selected) => {
     setCity(selected);
-    setInput("");
+    setInput(selected);
+    setFocus(false);
     Keyboard.dismiss();
   };
 
