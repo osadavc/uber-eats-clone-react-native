@@ -34,12 +34,14 @@ export default function RestaurantItems(props) {
   );
 }
 
-const RestaurantImage = (props) => {
+const RestaurantImage = ({ image }) => {
   return (
     <>
       <Image
         source={{
-          uri: props.image,
+          uri: image
+            ? image
+            : "https://s3-media1.fl.yelpcdn.com/bphoto/AGu7rGRHHyxxNUVBy-nGCg/o.jpg",
         }}
         resizeMode={"cover"}
         style={{ width: "100%", height: 180 }}

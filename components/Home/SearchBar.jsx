@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Keyboard,
+} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
@@ -25,6 +31,7 @@ export default function SearchBar({ setCity }) {
   const selectLocation = (selected) => {
     setCity(selected);
     setInput("");
+    Keyboard.dismiss();
   };
 
   return (

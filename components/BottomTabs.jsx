@@ -8,9 +8,10 @@ export default function BottomTabs() {
     <View
       style={{
         flexDirection: "row",
-        margin: 10,
-        marginHorizontal: 20,
+        padding: 10,
+        paddingHorizontal: 20,
         justifyContent: "space-between",
+        backgroundColor: "#eee",
       }}
     >
       <Icon icon="home" text="Home" />
