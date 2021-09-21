@@ -1,10 +1,57 @@
 import { useNavigation } from "@react-navigation/core";
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SkeletonContent from "react-native-skeleton-content";
 
-export default function RestaurantItems({ restaurantData, isLoading }) {
+const styles = StyleSheet.create({
+  restaurantItem: {
+    marginBottom: 10,
+  },
+  skeletonContent: {
+    width: "100%",
+    flex: 1,
+  },
+  restaurantDetail: {
+    marginTop: 5,
+    padding: 15,
+    backgroundColor: "white",
+  },
+  restaurantImage: {
+    width: "100%",
+    height: 200,
+    borderRadius: 13,
+  },
+  heartIcon: {
+    position: "absolute",
+    right: 20,
+    top: 20,
+  },
+  restaurantInfo: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  restaurantName: {
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+  restaurantTime: {
+    fontSize: 13,
+    color: "gray",
+  },
+  restaurantRating: {
+    backgroundColor: "#eee",
+    height: 30,
+    width: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 15,
+  },
+});
+
+const RestaurantItems = ({ restaurantData, isLoading }) => {
   const navigation = useNavigation();
 
   return (
@@ -12,25 +59,17 @@ export default function RestaurantItems({ restaurantData, isLoading }) {
       {restaurantData?.map((item, index) => (
         <TouchableOpacity
           activeOpacity={1}
-          style={{ marginBottom: 10 }}
+          style={styles.restaurantItem}
           key={index}
           onPress={() => {
-            navigation.navigate("RestaurantDetail", {
-              name: item.name,
-              image: item.image_url,
-              price: item.price,
-              reviews: item.review_count,
-              rating: item.rating,
-              categories: item.categories,
-            });
+            navigation.navigate("RestaurantDetail", item);
           }}
         >
           <SkeletonContent
-            containerStyle={{
-              width: "100%",
-              padding: isLoading ? 17 : 0,
-              flex: 1,
-            }}
+            containerStyle={[
+              { padding: isLoading ? 17 : 0 },
+              styles.skeletonContent,
+            ]}
             boneColor="#fff"
             highlightColor="#eee"
             isLoading={isLoading}
@@ -58,9 +97,7 @@ export default function RestaurantItems({ restaurantData, isLoading }) {
               },
             ]}
           >
-            <View
-              style={{ marginTop: 5, padding: 15, backgroundColor: "white" }}
-            >
+            <View style={styles.restaurantDetail}>
               <RestaurantImage image={item.image_url} />
               <RestaurantInfo name={item.name} rating={item.rating} />
             </View>
@@ -69,7 +106,7 @@ export default function RestaurantItems({ restaurantData, isLoading }) {
       ))}
     </View>
   );
-}
+};
 
 const RestaurantImage = ({ image }) => {
   return (
@@ -81,9 +118,9 @@ const RestaurantImage = ({ image }) => {
             : "https://s3-media1.fl.yelpcdn.com/bphoto/AGu7rGRHHyxxNUVBy-nGCg/o.jpg",
         }}
         resizeMode={"cover"}
-        style={{ width: "100%", height: 200, borderRadius: 13 }}
+        style={styles.restaurantImage}
       />
-      <TouchableOpacity style={{ position: "absolute", right: 20, top: 20 }}>
+      <TouchableOpacity style={styles.heartIcon}>
         <MaterialCommunityIcons name="heart-outline" size={25} color="white" />
       </TouchableOpacity>
     </>
@@ -91,29 +128,15 @@ const RestaurantImage = ({ image }) => {
 };
 
 const RestaurantInfo = (props) => (
-  <View
-    style={{
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginTop: 10,
-    }}
-  >
+  <View style={styles.restaurantInfo}>
     <View>
-      <Text style={{ fontSize: 15, fontWeight: "bold" }}>{props.name}</Text>
-      <Text style={{ fontSize: 13, color: "gray" }}>30-45 • min</Text>
+      <Text style={styles.restaurantName}>{props.name}</Text>
+      <Text style={styles.restaurantTime}>30-45 • min</Text>
     </View>
-    <View
-      style={{
-        backgroundColor: "#eee",
-        height: 30,
-        width: 30,
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 15,
-      }}
-    >
+    <View style={styles.restaurantRating}>
       <Text>{props.rating}</Text>
     </View>
   </View>
 );
+
+export default RestaurantItems;

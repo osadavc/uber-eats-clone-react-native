@@ -52,7 +52,7 @@ export default function Home() {
       <StatusBar />
       <View
         style={{
-          paddingTop: 30,
+          paddingTop: 35,
           padding: 15,
           backgroundColor: "white",
         }}

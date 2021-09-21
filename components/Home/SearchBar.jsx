@@ -5,11 +5,51 @@ import {
   TextInput,
   TouchableOpacity,
   Keyboard,
+  StyleSheet,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
-export default function SearchBar({ setCity }) {
+const styles = StyleSheet.create({
+  searchContainer: {
+    marginTop: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#eee",
+    borderRadius: 20,
+  },
+  searchInput: {
+    flexDirection: "row",
+    fontWeight: "700",
+    paddingVertical: 13,
+    paddingHorizontal: 15,
+    flex: 1,
+  },
+  searchButton: {
+    flexDirection: "row",
+    marginRight: 8,
+    backgroundColor: "white",
+    padding: 9,
+    borderRadius: 30,
+    alignItems: "center",
+  },
+  dropDownContainer: {
+    width: "100%",
+    paddingLeft: 1,
+  },
+  dropDown: {
+    backgroundColor: "#eee",
+    borderRadius: 16,
+  },
+  dropDownItem: {
+    paddingHorizontal: 14,
+    paddingVertical: 13,
+    borderBottomColor: "#fafafa",
+    borderBottomWidth: 1,
+  },
+});
+
+const SearchBar = ({ setCity }) => {
   const [input, setInput] = useState("");
   const [locations, setLocations] = useState(null);
   const [isFocus, setFocus] = useState(false);
@@ -39,27 +79,13 @@ export default function SearchBar({ setCity }) {
 
   return (
     <View>
-      <View
-        style={{
-          marginTop: 15,
-          flexDirection: "row",
-          alignItems: "center",
-          backgroundColor: "#eee",
-          borderRadius: 20,
-        }}
-      >
+      <View style={styles.searchContainer}>
         <View style={{ marginLeft: 10 }}>
           <Ionicons name="location-sharp" size={24} />
         </View>
         <TextInput
           placeholder="Search"
-          style={{
-            flexDirection: "row",
-            fontWeight: "700",
-            paddingVertical: 13,
-            paddingHorizontal: 15,
-            flex: 1,
-          }}
+          style={styles.searchInput}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
           value={input}
@@ -67,48 +93,28 @@ export default function SearchBar({ setCity }) {
             setInput(text);
           }}
         />
-        <View
-          style={{
-            flexDirection: "row",
-            marginRight: 8,
-            backgroundColor: "white",
-            padding: 9,
-            borderRadius: 30,
-            alignItems: "center",
-          }}
-        >
+        <View style={styles.searchButton}>
           <AntDesign name="clockcircle" size={11} />
           <Text style={{ marginLeft: 10 }}>Search</Text>
         </View>
       </View>
       {isFocus && (
         <View
-          style={{
-            width: "100%",
-            marginTop: locations ? 15 : 0,
-            paddingLeft: 1,
-          }}
+          style={[{ marginTop: locations ? 15 : 0 }, styles.dropDownContainer]}
         >
           <SearchDropdown list={locations} setCity={selectLocation} />
         </View>
       )}
     </View>
   );
-}
+};
 
 const SearchDropdown = ({ list, setCity }) => {
   return (
-    <View style={{ backgroundColor: "#eee", borderRadius: 16 }}>
+    <View style={styles.dropDown}>
       {list?.map((item, index) => (
         <TouchableOpacity onPress={() => setCity(item)} key={index}>
-          <View
-            style={{
-              paddingHorizontal: 14,
-              paddingVertical: 13,
-              borderBottomColor: "#fafafa",
-              borderBottomWidth: 1,
-            }}
-          >
+          <View style={styles.dropDownItem}>
             <Text>{item}</Text>
           </View>
         </TouchableOpacity>
@@ -116,3 +122,5 @@ const SearchDropdown = ({ list, setCity }) => {
     </View>
   );
 };
+
+export default SearchBar;

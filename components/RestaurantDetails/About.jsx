@@ -3,16 +3,17 @@ import { View, Text, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 export default function About({ route }) {
-  const { name, image, price, rating, reviews, categories } = route.params;
+  const { name, image_url, price, rating, review_count, categories } =
+    route.params;
   const formattedCategories = categories.map((cat) => cat.title).join(" • ");
   const description = `${formattedCategories} ${
     price ? " • " + price : ""
-  } • 🎟 • ${rating} ⭐ (${reviews}+)`;
+  } • 🎟 • ${rating} ⭐ (${review_count}+)`;
 
   return (
     <View>
       <StatusBar style="inverted" translucent={true} />
-      <RestaurantImage image={image} />
+      <RestaurantImage image={image_url} />
       <RestaurantName title={name} />
       <RestaurantDescription description={description} />
     </View>
