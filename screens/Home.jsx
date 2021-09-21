@@ -10,11 +10,13 @@ const YELP_API_KEY =
   "iGJtvX8vvP7DRhLyo4LDN-Fje_y9eKUwIZb5EaWBS4dMWZBCSd0B5KP0M4CHPM4H1P9e0R0YuwHzLqDeNYWminFru6DInpI65WgmWaPJj71qjMu3WyAU56BeppRHYXYx";
 
 export default function Home() {
-  const [restaurantData, setRestaurantData] = useState([]);
+  const [restaurantData, setRestaurantData] = useState([{}, {}, {}, {}]);
   const [city, setCity] = useState("San Francisco");
   const [activeTab, setActiveTab] = useState("Pickup");
+  const [loading, setLoading] = useState(true);
 
   const getRestaurants = (cityName) => {
+    setLoading(true);
     const YELP_URL = `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${cityName}`;
 
     const YELP_OPTIONS = {
@@ -25,15 +27,16 @@ export default function Home() {
 
     return fetch(YELP_URL, YELP_OPTIONS)
       .then((res) => res.json())
-      .then((json) =>
+      .then((json) => {
         setRestaurantData(
           activeTab == "Delivery"
             ? json.businesses.filter((business) =>
                 business.transactions.includes(activeTab.toLowerCase())
               )
             : json.businesses
-        )
-      );
+        );
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -60,7 +63,10 @@ export default function Home() {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Categories />
         <View style={{ paddingBottom: 170, flex: 1 }}>
-          <RestaurantItems restaurantData={restaurantData} />
+          <RestaurantItems
+            restaurantData={restaurantData}
+            isLoading={loading}
+          />
         </View>
       </ScrollView>
     </View>

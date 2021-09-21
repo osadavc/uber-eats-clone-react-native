@@ -2,13 +2,14 @@ import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import SkeletonContent from "react-native-skeleton-content";
 
-export default function RestaurantItems(props) {
+export default function RestaurantItems({ restaurantData, isLoading }) {
   const navigation = useNavigation();
 
   return (
     <View>
-      {props.restaurantData?.map((item, index) => (
+      {restaurantData?.map((item, index) => (
         <TouchableOpacity
           activeOpacity={1}
           style={{ marginBottom: 10 }}
@@ -24,10 +25,46 @@ export default function RestaurantItems(props) {
             });
           }}
         >
-          <View style={{ marginTop: 5, padding: 15, backgroundColor: "white" }}>
-            <RestaurantImage image={item.image_url} />
-            <RestaurantInfo name={item.name} rating={item.rating} />
-          </View>
+          <SkeletonContent
+            containerStyle={{
+              width: "100%",
+              padding: isLoading ? 17 : 0,
+              flex: 1,
+            }}
+            boneColor="#fff"
+            highlightColor="#eee"
+            isLoading={isLoading}
+            layout={[
+              {
+                key: "image",
+                width: "100%",
+                height: 200,
+                marginBottom: 6,
+                borderRadius: 12,
+              },
+              {
+                key: "title",
+                width: 180,
+                height: 20,
+                marginBottom: 6,
+                borderRadius: 5,
+              },
+              {
+                key: "time",
+                width: 100,
+                height: 20,
+                marginBottom: 6,
+                borderRadius: 5,
+              },
+            ]}
+          >
+            <View
+              style={{ marginTop: 5, padding: 15, backgroundColor: "white" }}
+            >
+              <RestaurantImage image={item.image_url} />
+              <RestaurantInfo name={item.name} rating={item.rating} />
+            </View>
+          </SkeletonContent>
         </TouchableOpacity>
       ))}
     </View>
@@ -44,7 +81,7 @@ const RestaurantImage = ({ image }) => {
             : "https://s3-media1.fl.yelpcdn.com/bphoto/AGu7rGRHHyxxNUVBy-nGCg/o.jpg",
         }}
         resizeMode={"cover"}
-        style={{ width: "100%", height: 180 }}
+        style={{ width: "100%", height: 200, borderRadius: 13 }}
       />
       <TouchableOpacity style={{ position: "absolute", right: 20, top: 20 }}>
         <MaterialCommunityIcons name="heart-outline" size={25} color="white" />

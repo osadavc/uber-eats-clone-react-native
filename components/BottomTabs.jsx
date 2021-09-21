@@ -44,7 +44,7 @@ const Icon = (props) => {
           }}
           color="#2E3C43"
         />
-        <Text>{props.text}</Text>
+        <Text style={{ color: "#2E3C43" }}>{props.text}</Text>
       </View>
     </TouchableOpacity>
   );
