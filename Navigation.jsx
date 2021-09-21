@@ -4,8 +4,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import Home from "./screens/Home";
 import RestaurantDetail from "./screens/RestaurantDetail";
 
-import { Provider as ReduxProvider } from "react-redux";
-import configureStore from "./redux/store";
+import BottomTabs from "./components/BottomTabs";
+import OrderCompleted from "./screens/OrderCompleted";
+import { useSelector } from "react-redux";
 
 export default function RootNavigation() {
   const Stack = createStackNavigator();
@@ -13,16 +14,16 @@ export default function RootNavigation() {
     headerShown: false,
   };
 
-  const store = configureStore();
+  const isBottomNavBar = useSelector((state) => state.bottomNavReducer);
 
   return (
-    <ReduxProvider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={screenOptions} initialRouteName="Home">
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="RestaurantDetail" component={RestaurantDetail} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ReduxProvider>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={screenOptions} initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="RestaurantDetail" component={RestaurantDetail} />
+        <Stack.Screen name="OrderCompleted" component={OrderCompleted} />
+      </Stack.Navigator>
+      {isBottomNavBar && <BottomTabs />}
+    </NavigationContainer>
   );
 }

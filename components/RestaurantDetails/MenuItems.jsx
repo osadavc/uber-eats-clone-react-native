@@ -2,43 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { Divider } from "react-native-elements";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-
-const foods = [
-  {
-    title: "Tandoori Chicken",
-    description: "Amazing Indian Dish",
-    price: "$19.20",
-    image: "https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg",
-  },
-  {
-    title: "Braised Leeks with Mozzarella & a Fried Egg",
-    description: "Charleen Badman's terrific leek gratin",
-    price: "$26.80",
-    image:
-      "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2010%2F12%2F201012-ss-dishes-leeks.jpg",
-  },
-  {
-    title: "Smoked Pork Jowl with Pickles:",
-    description: "Smoked pork jowl: It's like bacon to the bacon power,",
-    price: "$16.90",
-    image:
-      "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2010%2F12%2F201012-ss-dishes-smoked-pork.jpg",
-  },
-  {
-    title: "Scallop Sashimi with Meyer Lemon Confit",
-    description: "a sliver of scallop sashimi with lightly sweet Meyer lemon ",
-    price: "$30.86",
-    image:
-      "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2010%2F12%2F201012-ss-dishes-scallop-sashimi.jpg",
-  },
-  {
-    title: "Vegan Charcuterie",
-    description: "vegan version of the Italian tuna-based sauce tonnato",
-    price: "$18.36",
-    image:
-      "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2010%2F12%2F201012-ss-dishes-charcuterie.jpg",
-  },
-];
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const styles = StyleSheet.create({
   menuItem: {
@@ -52,22 +17,51 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 });
+export default function MenuItems({
+  restaurantName,
+  foods,
+  hideCheckbox,
+  marginLeft,
+}) {
+  const dispatch = useDispatch();
+  const selectItem = (item, checkboxValue) => {
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: {
+        ...item,
+        restaurantName: restaurantName,
+        checkboxValue: checkboxValue,
+      },
+    });
+  };
 
-export default function MenuItems() {
+  const cartItems = useSelector(
+    (state) => state.cartReducer.selectedItems.items
+  );
+
+  const isFoodInTheCart = (food, cartItems) =>
+    Boolean(cartItems.find((item) => item.title === food.title));
+
   return (
     <View showsVerticalScrollIndicator={false} style={{ paddingBottom: 130 }}>
       {foods.map((item, index) => (
         <View key={index}>
           <View style={styles.menuItem}>
-            <BouncyCheckbox
-              iconStyle={{
-                borderColor: "lightgray",
-                borderRadius: 0,
-              }}
-              fillColor="green"
-            />
+            {hideCheckbox ? null : (
+              <>
+                <BouncyCheckbox
+                  iconStyle={{
+                    borderColor: "lightgray",
+                    borderRadius: 0,
+                  }}
+                  fillColor="green"
+                  onPress={(checkboxValue) => selectItem(item, checkboxValue)}
+                  isChecked={isFoodInTheCart(item, cartItems)}
+                />
+              </>
+            )}
             <FoodInfo food={item} />
-            <FoodImage food={item} />
+            <FoodImage food={item} marginLeft={marginLeft ? marginLeft : 0} />
           </View>
           <Divider
             width={0.5}
@@ -93,9 +87,9 @@ const FoodInfo = ({ food }) => (
   </View>
 );
 
-const FoodImage = ({ food }) => (
+const FoodImage = ({ food, marginLeft }) => (
   <Image
     source={{ uri: food.image }}
-    style={{ width: 80, height: 80, borderRadius: 8 }}
+    style={{ width: 80, height: 80, borderRadius: 8, marginLeft: marginLeft }}
   />
 );

@@ -1,20 +1,11 @@
+import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export const localRestaurants = [
-  {
-    name: "Farmhouse Kitchen Thai Cuisine",
-    image_url:
-      "https://images.unsplash.com/photo-1552566626-52f8b828add9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
-    category: ["cafe", "bar"],
-    price: "$$",
-    reviews: 1244,
-    rating: 4.5,
-  },
-];
+export default function RestaurantItems({ ...props }) {
+  const navigation = useNavigation();
 
-export default function RestaurantItems({ navigation, ...props }) {
   return (
     <View>
       {props.restaurantData?.map((item, index) => (
