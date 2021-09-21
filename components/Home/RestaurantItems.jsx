@@ -3,7 +3,7 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function RestaurantItems({ ...props }) {
+export default function RestaurantItems(props) {
   const navigation = useNavigation();
 
   return (
@@ -34,22 +34,22 @@ export default function RestaurantItems({ ...props }) {
   );
 }
 
-const RestaurantImage = (props) => (
-  <>
-    <Image
-      source={{
-        uri:
-          props.image === ""
-            ? "https://images.unsplash.com/photo-1552566626-52f8b828add9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80"
-            : props.image,
-      }}
-      style={{ width: "100%", height: 180 }}
-    />
-    <TouchableOpacity style={{ position: "absolute", right: 20, top: 20 }}>
-      <MaterialCommunityIcons name="heart-outline" size={25} color="white" />
-    </TouchableOpacity>
-  </>
-);
+const RestaurantImage = (props) => {
+  return (
+    <>
+      <Image
+        source={{
+          uri: props.image,
+        }}
+        resizeMode={"cover"}
+        style={{ width: "100%", height: 180 }}
+      />
+      <TouchableOpacity style={{ position: "absolute", right: 20, top: 20 }}>
+        <MaterialCommunityIcons name="heart-outline" size={25} color="white" />
+      </TouchableOpacity>
+    </>
+  );
+};
 
 const RestaurantInfo = (props) => (
   <View
