@@ -1,19 +1,23 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 
-export default function BottomTabs() {
+const styles = StyleSheet.create({
+  bottomTabContainer: {
+    flexDirection: "row",
+    padding: 8,
+    paddingHorizontal: 20,
+    justifyContent: "space-between",
+    backgroundColor: "#eee",
+  },
+  bottomTabIcon: { marginBottom: 3, alignSelf: "center" },
+  bottomTabText: { color: "#2E3C43" },
+});
+
+const BottomTabs = () => {
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        padding: 8,
-        paddingHorizontal: 20,
-        justifyContent: "space-between",
-        backgroundColor: "#eee",
-      }}
-    >
+    <View style={styles.bottomTabContainer}>
       <Icon icon="home" text="Home" />
       <Icon icon="search" text="Browse" route="Home" />
       <Icon icon="shopping-bag" text="Grocery" />
@@ -21,7 +25,7 @@ export default function BottomTabs() {
       <Icon icon="user" text="Account" />
     </View>
   );
-}
+};
 
 const Icon = (props) => {
   const navigation = useNavigation();
@@ -38,14 +42,13 @@ const Icon = (props) => {
         <FontAwesome5
           name={props.icon}
           size={20}
-          style={{
-            marginBottom: 3,
-            alignSelf: "center",
-          }}
+          style={styles.bottomTabIcon}
           color="#2E3C43"
         />
-        <Text style={{ color: "#2E3C43" }}>{props.text}</Text>
+        <Text style={styles.bottomTabText}>{props.text}</Text>
       </View>
     </TouchableOpacity>
   );
 };
+
+export default BottomTabs;

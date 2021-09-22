@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { Divider } from "react-native-elements";
 import About from "../components/RestaurantDetails/About";
 import MenuItems from "../components/RestaurantDetails/MenuItems";
@@ -42,15 +42,26 @@ const foods = [
   },
 ];
 
-export default function RestaurantDetail({ route, navigation }) {
+const styles = StyleSheet.create({
+  RestaurantContainer: {
+    backgroundColor: "white",
+  },
+  divider: {
+    marginVertical: 20,
+  },
+});
+
+const RestaurantDetail = () => {
   return (
-    <View style={{ backgroundColor: "white" }}>
+    <View style={styles.RestaurantContainer}>
       <ScrollView>
-        <About route={route} />
-        <Divider width={1.6} style={{ marginVertical: 20 }} color="#eee" />
-        <MenuItems restaurantName={route.params.name} foods={foods} />
+        <About />
+        <Divider width={1.6} style={styles.divider} color="#eee" />
+        <MenuItems foods={foods} />
       </ScrollView>
-      <ViewCart navigation={navigation} />
+      <ViewCart />
     </View>
   );
-}
+};
+
+export default RestaurantDetail;
