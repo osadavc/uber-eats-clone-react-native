@@ -93,10 +93,12 @@ const SearchBar = ({ setCity }) => {
             setInput(text);
           }}
         />
-        <View style={styles.searchButton}>
-          <AntDesign name="clockcircle" size={11} />
-          <Text style={{ marginLeft: 10 }}>Search</Text>
-        </View>
+        <TouchableOpacity onPress={() => selectLocation(input)}>
+          <View style={styles.searchButton}>
+            <AntDesign name="clockcircle" size={11} />
+            <Text style={{ marginLeft: 10 }}>Search</Text>
+          </View>
+        </TouchableOpacity>
       </View>
       {isFocus && (
         <View

@@ -7,11 +7,11 @@ const styles = StyleSheet.create({
   bottomTabContainer: {
     flexDirection: "row",
     padding: 8,
-    paddingHorizontal: 20,
+    paddingHorizontal: 35,
     justifyContent: "space-between",
-    backgroundColor: "#eee",
+    backgroundColor: "#fff",
   },
-  bottomTabIcon: { marginBottom: 3, alignSelf: "center" },
+  bottomTabIcon: { marginBottom: 2, alignSelf: "center" },
   bottomTabText: { color: "#2E3C43" },
 });
 
@@ -20,7 +20,6 @@ const BottomTabs = () => {
     <View style={styles.bottomTabContainer}>
       <Icon icon="home" text="Home" />
       <Icon icon="search" text="Browse" route="Home" />
-      <Icon icon="shopping-bag" text="Grocery" />
       <Icon icon="receipt" text="Orders" />
       <Icon icon="user" text="Account" />
     </View>
@@ -41,7 +40,7 @@ const Icon = (props) => {
       <View>
         <FontAwesome5
           name={props.icon}
-          size={20}
+          size={21}
           style={styles.bottomTabIcon}
           color="#2E3C43"
         />
