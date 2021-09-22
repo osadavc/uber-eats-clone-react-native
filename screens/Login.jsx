@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation, StackActions } from "@react-navigation/core";
 import { StatusBar } from "expo-status-bar";
 import {
   Text,
@@ -67,17 +67,23 @@ const Login = () => {
       type: "HIDE",
     });
 
-    auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
+        navigation.dispatch(StackActions.replace("Home"));
         dispatch({
           type: "SHOW",
         });
-        navigation.navigate("Home");
+        dispatch({
+          type: "LOG_IN_USER",
+          payload: user.providerData[0],
+        });
         setLoading(false);
       } else {
         setLoading(false);
       }
     });
+
+    return () => unsubscribe();
   }, []);
 
   const signInFail = () => {
@@ -146,6 +152,7 @@ const Login = () => {
         </>
       ) : (
         <>
+          <StatusBar />
           <TouchableOpacity
             style={styles.loginButton}
             activeOpacity={0.5}
