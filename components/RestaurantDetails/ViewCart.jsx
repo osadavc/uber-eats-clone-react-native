@@ -10,7 +10,8 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import OrderItem from "./OrderItem";
-import firebase from "../../firebase";
+import { firestore } from "../../firebase";
+import firebase from "firebase";
 import { useNavigation } from "@react-navigation/core";
 import LottieView from "lottie-react-native";
 
@@ -138,8 +139,7 @@ const ViewCart = () => {
     dispatch({
       type: "HIDE",
     });
-    firebase
-      .firestore()
+    firestore
       .collection("orders")
       .add({
         items,
@@ -168,7 +168,7 @@ const ViewCart = () => {
   const checkOutModalContent = () => {
     return (
       <>
-        <StatusBar hidden={true} backgroundColor="rgba(0,0,0,0.7)" />
+        <StatusBar backgroundColor="rgba(0,0,0,0.7)" />
         <View style={styles.modalContainer}>
           <View style={styles.modalCheckoutContainer}>
             <Text style={styles.restaurantName}>{restaurantName}</Text>
@@ -205,7 +205,6 @@ const ViewCart = () => {
 
   return (
     <>
-      <StatusBar hidden={true} />
       {loading ? (
         <>
           <View style={styles.loadingContainer}>

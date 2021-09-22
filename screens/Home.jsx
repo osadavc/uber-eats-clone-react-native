@@ -60,22 +60,24 @@ const Home = () => {
   }, [city, activeTab]);
 
   return (
-    <View>
-      <StatusBar />
-      <View style={styles.homeContainer}>
-        <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
-        <SearchBar setCity={setCity} />
-      </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Categories />
-        <View style={styles.restaurantItemContainer}>
-          <RestaurantItems
-            restaurantData={restaurantData}
-            isLoading={loading}
-          />
+    <>
+      <StatusBar translucent={true} backgroundColor="rgba(255,255,255,0)" />
+      <View>
+        <View style={styles.homeContainer}>
+          <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+          <SearchBar setCity={setCity} />
         </View>
-      </ScrollView>
-    </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Categories />
+          <View style={styles.restaurantItemContainer}>
+            <RestaurantItems
+              restaurantData={restaurantData}
+              isLoading={loading}
+            />
+          </View>
+        </ScrollView>
+      </View>
+    </>
   );
 };
 
