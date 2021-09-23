@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Alert,
   View,
+  Image,
 } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { logInAsync } from "expo-google-app-auth";
@@ -25,6 +26,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#eee",
   },
+  logoStyle: {
+    width: 225,
+    height: 225,
+    marginBottom: 40,
+  },
   loginButton: {
     backgroundColor: "black",
     paddingVertical: 15,
@@ -38,6 +44,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 10,
     marginBottom: 2,
+    fontFamily: "Nunito",
   },
   loadingContainer: {
     position: "absolute",
@@ -153,6 +160,12 @@ const Login = () => {
       ) : (
         <>
           <StatusBar />
+          <Image
+            source={{
+              uri: "https://images.complex.com/complex/image/upload/q_auto/olcfxftmlt88dix1lnso",
+            }}
+            style={styles.logoStyle}
+          />
           <TouchableOpacity
             style={styles.loginButton}
             activeOpacity={0.5}
