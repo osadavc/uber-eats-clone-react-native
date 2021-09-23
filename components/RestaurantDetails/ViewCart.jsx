@@ -122,10 +122,11 @@ const ViewCart = () => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
+  const isBottomNavBar = useSelector((state) => state.bottomNavReducer);
   const { items, restaurantName } = useSelector(
     (state) => state.cartReducer.selectedItems
   );
-  const isBottomNavBar = useSelector((state) => state.bottomNavReducer);
+  const userInfo = useSelector((state) => state.authReducer);
 
   const dispatch = useDispatch();
 
@@ -144,6 +145,7 @@ const ViewCart = () => {
       .add({
         items,
         restaurantName,
+        user: userInfo.email,
         total: Number(total),
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       })

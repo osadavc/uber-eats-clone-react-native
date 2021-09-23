@@ -69,7 +69,6 @@ const Login = () => {
 
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.dispatch(StackActions.replace("Home"));
         dispatch({
           type: "SHOW",
         });
@@ -77,6 +76,7 @@ const Login = () => {
           type: "LOG_IN_USER",
           payload: user.providerData[0],
         });
+        navigation.dispatch(StackActions.replace("Home"));
         setLoading(false);
       } else {
         setLoading(false);

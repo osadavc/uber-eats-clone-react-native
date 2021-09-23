@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const styles = StyleSheet.create({
   menuContainer: {
-    paddingBottom: 130,
+    paddingBottom: 100,
   },
   divider: {
     marginHorizontal: 30,

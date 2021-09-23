@@ -9,6 +9,7 @@ import Login from "./screens/Login";
 import BottomTabs from "./components/BottomTabs";
 import OrderCompleted from "./screens/OrderCompleted";
 import { useSelector } from "react-redux";
+import Orders from "./screens/Orders";
 
 export default function RootNavigation() {
   const Stack = createStackNavigator();
@@ -24,6 +25,7 @@ export default function RootNavigation() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="RestaurantDetail" component={RestaurantDetail} />
+        <Stack.Screen name="Orders" component={Orders} />
         <Stack.Screen name="OrderCompleted" component={OrderCompleted} />
       </Stack.Navigator>
       {isBottomNavBar && <BottomTabs />}
