@@ -26,6 +26,9 @@ const styles = StyleSheet.create({
     padding: 16,
     height: 500,
     borderWidth: 1,
+    borderTopEndRadius: 20,
+    borderTopLeftRadius: 20,
+    paddingTop: 30,
   },
   modalButtonContainer: {
     flexDirection: "row",

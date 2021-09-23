@@ -1,12 +1,18 @@
-import React, { useEffect, useRef } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Modal,
+} from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import BottomSheet from "reanimated-bottom-sheet";
-import Animated from "react-native-reanimated";
 
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../firebase";
+import { StatusBar } from "expo-status-bar";
 
 const styles = StyleSheet.create({
   bottomTabContainer: {
@@ -23,28 +29,14 @@ const styles = StyleSheet.create({
     width: 25,
     borderRadius: 50,
   },
-  bottomSheetHeader: {
-    backgroundColor: "#fafafa",
-    height: 40,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    marginBottom: -9,
-  },
-  panelHeader: {
-    alignItems: "center",
-  },
-  panelHandle: {
-    width: 50,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: "#00000040",
-    marginTop: 19,
-  },
+
   bottomSheetContainer: {
     height: 330 - 40,
     backgroundColor: "#fafafa",
-    paddingTop: 25,
+    justifyContent: "center",
     alignItems: "center",
+    borderTopEndRadius: 20,
+    borderTopLeftRadius: 20,
   },
   sheetProfileImage: {
     height: 70,
@@ -77,8 +69,7 @@ const BottomTabs = () => {
 
   const navigation = useNavigation();
 
-  const bottomSheet = useRef();
-  const animatedValue = new Animated.Value(1);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const logOut = () => {
     dispatch({
@@ -89,48 +80,49 @@ const BottomTabs = () => {
   };
 
   const renderBottomSheet = () => (
-    <View style={styles.bottomSheetContainer}>
-      <Image
-        source={{ uri: userInfo.photoURL }}
-        style={styles.sheetProfileImage}
-      />
-      <Text style={styles.sheetProfileName}>{userInfo.displayName}</Text>
-      <Text style={styles.sheetProfileEmail}>{userInfo.email}</Text>
-      <TouchableOpacity
-        style={styles.sheetLogOut}
-        activeOpacity={0.8}
-        onPress={logOut}
+    <>
+      <StatusBar backgroundColor="rgba(0,0,0,0.7)" />
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "flex-end",
+          backgroundColor: "rgba(0,0,0,0.7)",
+        }}
       >
-        <Text style={styles.sheetLogOutText}>Log Out</Text>
-      </TouchableOpacity>
-    </View>
-  );
-
-  const renderBottomSheetHeader = () => (
-    <View style={styles.bottomSheetHeader}>
-      <View style={styles.panelHeader}>
-        <View style={styles.panelHandle} />
+        <View style={styles.bottomSheetContainer}>
+          <Image
+            source={{ uri: userInfo.photoURL }}
+            style={styles.sheetProfileImage}
+          />
+          <Text style={styles.sheetProfileName}>{userInfo.displayName}</Text>
+          <Text style={styles.sheetProfileEmail}>{userInfo.email}</Text>
+          <TouchableOpacity
+            style={styles.sheetLogOut}
+            activeOpacity={0.8}
+            onPress={logOut}
+          >
+            <Text style={styles.sheetLogOutText}>Log Out</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </>
   );
 
   return (
     <>
-      <BottomSheet
-        ref={bottomSheet}
-        snapPoints={[330, 0]}
-        initialSnap={1}
-        callbackNode={animatedValue}
-        enabledGestureInteraction={true}
-        renderContent={renderBottomSheet}
-        renderHeader={renderBottomSheetHeader}
-        enabledContentTapInteraction={false}
-      />
+      <Modal
+        animationType="slide"
+        visible={modalVisible}
+        transparent={true}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        {renderBottomSheet()}
+      </Modal>
       <View style={styles.bottomTabContainer}>
         <Icon icon="home" text="Home" />
         <Icon icon="search" text="Browse" route="Home" />
         <Icon icon="receipt" text="Orders" />
-        <TouchableOpacity onPress={() => bottomSheet.current.snapTo(0)}>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
           <View>
             <Image
               source={{ uri: userInfo.photoURL }}
