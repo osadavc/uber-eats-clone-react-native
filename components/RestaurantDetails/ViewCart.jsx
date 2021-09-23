@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   restaurantName: {
     textAlign: "center",
     fontWeight: "600",
-    fontSize: 18,
+    fontSize: 20,
     marginBottom: 20,
     fontFamily: "Nunito",
   },
@@ -138,8 +138,6 @@ const ViewCart = () => {
 
   const dispatch = useDispatch();
 
-  console.log(restaurantPhoto, "resphoto");
-
   const total = items
     .map((item) => Number(item.price.replace("$", "")))
     .reduce((prev, current) => prev + current, 0)
@@ -158,11 +156,13 @@ const ViewCart = () => {
         restaurantPhoto,
         user: userInfo.email,
         total: Number(total),
+        paid: false,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       })
-      .then(() => {
+      .then((docRef) => {
         setTimeout(() => {
-          navigation.navigate("OrderCompleted", {
+          navigation.navigate("Payment", {
+            firebaseId: docRef.id,
             items,
             restaurantName,
             total,

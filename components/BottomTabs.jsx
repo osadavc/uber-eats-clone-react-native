@@ -122,8 +122,8 @@ const BottomTabs = () => {
         {renderBottomSheet()}
       </Modal>
       <View style={styles.bottomTabContainer}>
-        <Icon icon="home" text="Home" />
-        <Icon icon="search" text="Browse" route="Home" />
+        <Icon icon="home" text="Home" route="Home" />
+        <Icon icon="search" text="Browse" />
         <Icon icon="receipt" text="Orders" route="Orders" />
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <View>

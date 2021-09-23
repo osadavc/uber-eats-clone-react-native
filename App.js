@@ -22,7 +22,7 @@ const App = () => {
       <AppLoading
         startAsync={fetchFont}
         onFinish={() => setFontLoaded(true)}
-        onError={() => console.log("Error")}
+        onError={() => {}}
       />
     );
   }

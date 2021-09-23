@@ -8,8 +8,6 @@ let defaultState = {
 };
 
 const cartReducer = (state = defaultState, action) => {
-  console.log(state);
-
   switch (action.type) {
     case "ADD_TO_CART": {
       let newState = { ...state };

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 
 const styles = StyleSheet.create({
   orderContainer: {
-    backgroundColor: "#eee",
+    backgroundColor: "#F3F4F6",
     paddingHorizontal: 18,
     paddingVertical: 20,
     borderRadius: 12,
@@ -52,6 +52,7 @@ const SingleOrder = ({
       <Text style={styles.count}>{itemCount} Item</Text>
       <Image source={{ uri: restaurantImage }} style={styles.image} />
       <Text style={styles.price}>Sub Total - ${total?.toFixed(2)}</Text>
+      <Text>{}</Text>
     </View>
   );
 };
