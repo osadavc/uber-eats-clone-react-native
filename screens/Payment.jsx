@@ -17,6 +17,7 @@ import LottieView from "lottie-react-native";
 import { useSelector } from "react-redux";
 import { ActivityIndicator } from "react-native-paper";
 import { firestore } from "../firebase";
+import config from "../config";
 
 const styles = StyleSheet.create({
   container: {
@@ -157,7 +158,7 @@ const Payment = () => {
           loop={false}
         />
       </View>
-      <StripeProvider publishableKey="pk_test_51JJizYLGU84yrY9qLPNYmTvYW2Yj58WSs26YI7F5S8F1BaF1wIbYj5E8JJ6ZoyERoOG1YkDV1aZauyzjV3keiscC00C9l3rDXo">
+      <StripeProvider publishableKey={config.STRIPE_PUBLISHABLE_KEY}>
         <CardField
           postalCodeEnabled={false}
           placeholder={{

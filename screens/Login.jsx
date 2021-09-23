@@ -16,6 +16,8 @@ import { auth, firestore } from "../firebase";
 import firebase from "firebase";
 import { isUserEqual } from "../utils/isUserEqual";
 
+import config from "../config";
+
 import { useDispatch } from "react-redux";
 import LottieView from "lottie-react-native";
 
@@ -126,10 +128,8 @@ const Login = () => {
   const signIn = async () => {
     try {
       const result = await logInAsync({
-        androidClientId:
-          "667022099483-63eedj1ivosh8ab7p7smbciibbmqvo5g.apps.googleusercontent.com",
-        iosClientId:
-          "667022099483-h4pn9gel3grjvhmu177kpciupg17mnfm.apps.googleusercontent.com",
+        androidClientId: config.ANDROID_CLIENT_ID,
+        iosClientId: config.IOS_CLIENT_ID,
         scopes: ["profile", "email"],
         language: "en-GB",
       });
