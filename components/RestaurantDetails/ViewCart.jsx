@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   modalButtonText: {
     fontSize: 20,
     color: "white",
+    fontFamily: "Nunito",
   },
   modalButtonTotal: {
     position: "absolute",
@@ -53,12 +54,14 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 15,
     top: 16,
+    fontFamily: "Nunito",
   },
   restaurantName: {
     textAlign: "center",
     fontWeight: "600",
     fontSize: 18,
     marginBottom: 20,
+    fontFamily: "Nunito",
   },
   subTotalContainer: {
     flexDirection: "row",
@@ -98,10 +101,12 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
     marginRight: 30,
+    fontFamily: "Nunito",
   },
   totalText: {
     color: "white",
     fontSize: 20,
+    fontFamily: "Nunito",
   },
   loadingContainer: {
     position: "absolute",
@@ -126,12 +131,14 @@ const ViewCart = () => {
   const navigation = useNavigation();
 
   const isBottomNavBar = useSelector((state) => state.bottomNavReducer);
-  const { items, restaurantName } = useSelector(
+  const { items, restaurantName, restaurantPhoto } = useSelector(
     (state) => state.cartReducer.selectedItems
   );
   const userInfo = useSelector((state) => state.authReducer);
 
   const dispatch = useDispatch();
+
+  console.log(restaurantPhoto, "resphoto");
 
   const total = items
     .map((item) => Number(item.price.replace("$", "")))
@@ -148,6 +155,7 @@ const ViewCart = () => {
       .add({
         items,
         restaurantName,
+        restaurantPhoto,
         user: userInfo.email,
         total: Number(total),
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),

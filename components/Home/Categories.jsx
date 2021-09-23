@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   categoryText: {
     fontSize: 13,
     fontWeight: "900",
+    fontFamily: "Nunito",
   },
 });
 

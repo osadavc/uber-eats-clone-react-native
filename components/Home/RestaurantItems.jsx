@@ -35,11 +35,12 @@ const styles = StyleSheet.create({
   },
   restaurantName: {
     fontSize: 15,
-    fontWeight: "bold",
+    fontFamily: "NunitoBold",
   },
   restaurantTime: {
     fontSize: 13,
     color: "gray",
+    fontFamily: "Nunito",
   },
   restaurantRating: {
     backgroundColor: "#eee",
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 15,
+    fontFamily: "Nunito",
   },
 });
 

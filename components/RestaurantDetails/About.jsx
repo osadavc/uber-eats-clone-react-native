@@ -12,12 +12,14 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginTop: 10,
     marginHorizontal: 15,
+    fontFamily: "Nunito",
   },
   RestaurantDescription: {
     marginTop: 10,
     marginHorizontal: 15,
     fontWeight: "400",
     fontSize: 15.5,
+    fontFamily: "Nunito",
   },
 });
 

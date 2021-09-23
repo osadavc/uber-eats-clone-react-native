@@ -21,9 +21,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   orderText: {
-    fontSize: 16,
+    fontSize: 18,
     textAlign: "center",
     marginBottom: 30,
+    fontFamily: "Nunito",
   },
 });
 

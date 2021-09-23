@@ -21,10 +21,12 @@ const styles = StyleSheet.create({
   foodInfo: {
     width: 240,
     justifyContent: "space-evenly",
+    fontFamily: "Nunito",
   },
   foodTitle: {
     fontSize: 18,
     fontWeight: "600",
+    fontFamily: "Nunito",
   },
   foodImage: {
     width: 80,
@@ -43,6 +45,7 @@ export default function MenuItems({ foods, hideCheckbox, marginLeft }) {
       payload: {
         ...item,
         restaurantName: route.params.name,
+        restaurantPhoto: route.params.image_url,
         checkboxValue: checkboxValue,
       },
     });

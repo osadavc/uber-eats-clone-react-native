@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     padding: 9,
     borderRadius: 30,
     alignItems: "center",
+    fontFamily: "Nunito",
   },
   dropDownContainer: {
     width: "100%",
@@ -96,7 +97,7 @@ const SearchBar = ({ setCity }) => {
         <TouchableOpacity onPress={() => selectLocation(input)}>
           <View style={styles.searchButton}>
             <AntDesign name="clockcircle" size={11} />
-            <Text style={{ marginLeft: 10 }}>Search</Text>
+            <Text style={{ marginLeft: 10, fontFamily: "Nunito" }}>Search</Text>
           </View>
         </TouchableOpacity>
       </View>

@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontWeight: "900",
     fontSize: 15,
+    fontFamily: "Nunito",
   },
 });
 

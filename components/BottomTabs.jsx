@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   bottomTabIcon: { paddingBottom: 2, alignSelf: "center" },
-  bottomTabText: { color: "#2E3C43" },
+  bottomTabText: { color: "#2E3C43", fontFamily: "Nunito" },
   profileImage: {
     height: 25,
     width: 25,
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fafafa",
     justifyContent: "center",
     alignItems: "center",
-    borderTopEndRadius: 20,
-    borderTopLeftRadius: 20,
+    borderTopEndRadius: 30,
+    borderTopLeftRadius: 30,
   },
   sheetProfileImage: {
     height: 70,
@@ -46,9 +46,11 @@ const styles = StyleSheet.create({
   sheetProfileName: {
     fontSize: 20,
     marginTop: 19,
+    fontFamily: "Nunito",
   },
   sheetProfileEmail: {
     fontSize: 17,
+    fontFamily: "Nunito",
   },
   sheetLogOut: {
     marginTop: 30,
@@ -60,6 +62,7 @@ const styles = StyleSheet.create({
   sheetLogOutText: {
     color: "white",
     fontSize: 18,
+    fontFamily: "Nunito",
   },
 });
 
@@ -121,7 +124,7 @@ const BottomTabs = () => {
       <View style={styles.bottomTabContainer}>
         <Icon icon="home" text="Home" />
         <Icon icon="search" text="Browse" route="Home" />
-        <Icon icon="receipt" text="Orders" />
+        <Icon icon="receipt" text="Orders" route="Orders" />
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <View>
             <Image
@@ -141,7 +144,6 @@ const Icon = (props) => {
 
   return (
     <TouchableOpacity
-      rippleColor="rgba(0, 0, 0, .32)"
       onPress={() => {
         if (props.route) {
           navigation.navigate(props.route);
