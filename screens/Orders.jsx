@@ -56,6 +56,7 @@ const Orders = () => {
           setOrders((prevOrders) => [...prevOrders, doc.data()]);
         });
         setLoading(false);
+        console.log(orders);
       });
   }, []);
 
@@ -128,6 +129,7 @@ const Orders = () => {
                     total={order.total}
                     time={order.createdAt}
                     itemCount={orders.length}
+                    paymentStatus={order.paid}
                   />
                 </SkeletonContent>
               </TouchableOpacity>

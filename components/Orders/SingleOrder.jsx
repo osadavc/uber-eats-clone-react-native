@@ -42,6 +42,7 @@ const SingleOrder = ({
   time,
   restaurantImage,
   itemCount,
+  paymentStatus,
 }) => {
   return (
     <View style={styles.orderContainer}>
@@ -52,7 +53,17 @@ const SingleOrder = ({
       <Text style={styles.count}>{itemCount} Item</Text>
       <Image source={{ uri: restaurantImage }} style={styles.image} />
       <Text style={styles.price}>Sub Total - ${total?.toFixed(2)}</Text>
-      <Text>{}</Text>
+      <Text
+        style={{
+          color: paymentStatus ? "green" : "red",
+          textAlign: "center",
+          fontFamily: "Nunito",
+          fontSize: 17,
+          marginTop: 3,
+        }}
+      >
+        {paymentStatus ? "Paid" : "Not Paid"}
+      </Text>
     </View>
   );
 };
